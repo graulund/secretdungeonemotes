@@ -38,7 +38,7 @@
 
 	var SDE_VERSION = "1.0";
 
-	var wnd, tries = 0, sdeSetId = -999
+	var wnd, tries = 0, sdeSetId = -999, sdEmoticons = []
 	try {
 	    wnd = unsafeWindow;
 	} catch(e) {
@@ -93,14 +93,6 @@
 		var $ = wnd.jQuery
 
 		console.log("Secret Dungeon Emotes version " + SDE_VERSION + " launched");
-
-		// Configuration:
-
-		var sdEmoticons = [
-			{"name": "CurtainKapp", "url": "http://i.imgur.com/XesmBJq.png", "width": 25, "height": 28},
-			{"name": "ElectriKapp", "url": "http://i.imgur.com/cuqD3QE.png", "width": 23, "height": 28},
-			{"name": "TriKapp", "url": "http://i.imgur.com/iDieMmQ.png", "width": 23, "height": 29}
-		];
 
 		// Do it!
 
@@ -325,5 +317,41 @@
 		load()
 	}
 
-	init()
+	// Load emoticons, then init
+
+	var request = function(){
+		var loaded = typeof wnd.jQuery != "undefined"
+
+		if(!loaded){
+			console.log("SDER: Not loaded")
+			// Try again only 10 times
+			if(tries++ >= 10){
+				console.warn("SDE: jQuery not detected in " + location + ". Aborting everything.")
+			} else {
+				// Try again in 2 secs
+				console.log("SDER: Setting timeout")
+				setTimeout(request, 2000)
+			}
+		} else {
+			$.ajax({
+				url: "https://graulund.github.io/secretdungeonemotes/dungeonemotes.json",
+				dataType: "jsonp",
+				jsonpCallback: "sde_jsonp_static",
+				success: function(data){
+					console.log("SDE Success: Data: ", data)
+					if(typeof data == "object" && data instanceof Array){
+						sdEmoticons = data
+						tries = 0
+						init()
+					} else {
+						console.warn("Could not initialise SDE; ill data object received")
+					}
+				}
+			})
+		}
+	}
+
+	request()
+
+
 }());
