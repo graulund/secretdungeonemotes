@@ -97,7 +97,7 @@
 		// Do it!
 
 		var App = wnd.App, sdeManager = null, sdeEmoteList = {}, sdeChannels = {},
-			hasBTTV = "BTTVLOADED" in window
+			hasBTTV = ("BTTVLOADED" in window && window.BTTVLOADED)
 
 		// Prerequisites (Thanks to FrankerFaceZ!)
 
