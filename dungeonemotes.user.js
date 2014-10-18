@@ -58,13 +58,6 @@
 	}
 
 	var init = function(){
-		console.log("SDE load try " + (tries + 1))
-
-
-		if(hasFrankerFaceZ()){
-			console.log("SDE: FrankerFaceZ detected!")
-		}
-
 		// Only proceed loading SDE until all the below exist
 		var loaded =
 			typeof wnd.Ember != "undefined" &&
@@ -74,19 +67,26 @@
 			typeof wnd.jQuery != "undefined"
 
 		if(!loaded){
-			console.log("SDEI: Not loaded")
 			// Try again only 10 times
 			if(tries++ >= 10){
 				console.warn("SDE: Twitch Ember not detected in " + location + ". Aborting everything.")
 			} else {
 				// Try again in 5 secs
-				console.log("SDEI: Setting timeout")
 				setTimeout(init, 5000)
 			}
 		} else {
 			// Waiting 2 seconds to help get FFZ to load if needed
 			setTimeout(go, 2000)
 		}
+	}
+
+	var getEmoteList = function(callback){
+		$.ajax({
+			url: "https://graulund.github.io/secretdungeonemotes/dungeonemotes.json",
+			dataType: "jsonp",
+			jsonpCallback: "sde_jsonp_static",
+			success: callback
+		})
 	}
 
 	var go = function(){
@@ -96,7 +96,8 @@
 
 		// Do it!
 
-		var App = wnd.App, sdeManager = null, sdeEmoteList = {}, sdeChannels = {}, hasBTTV = false
+		var App = wnd.App, sdeManager = null, sdeEmoteList = {}, sdeChannels = {},
+			hasBTTV = "BTTVLOADED" in window
 
 		// Prerequisites (Thanks to FrankerFaceZ!)
 
@@ -311,8 +312,6 @@
 		convertEmoticonList()
 		updateEmoticonCSS()
 
-		console.log(sdEmoticons, sdeEmoteList)
-
 		ext.log("Proceeding to load!")
 		load()
 	}
@@ -323,29 +322,22 @@
 		var loaded = typeof wnd.jQuery != "undefined"
 
 		if(!loaded){
-			console.log("SDER: Not loaded")
 			// Try again only 10 times
 			if(tries++ >= 10){
 				console.warn("SDE: jQuery not detected in " + location + ". Aborting everything.")
 			} else {
 				// Try again in 2 secs
-				console.log("SDER: Setting timeout")
 				setTimeout(request, 2000)
 			}
 		} else {
-			$.ajax({
-				url: "https://graulund.github.io/secretdungeonemotes/dungeonemotes.json",
-				dataType: "jsonp",
-				jsonpCallback: "sde_jsonp_static",
-				success: function(data){
-					console.log("SDE Success: Data: ", data)
-					if(typeof data == "object" && data instanceof Array){
-						sdEmoticons = data
-						tries = 0
-						init()
-					} else {
-						console.warn("Could not initialise SDE; ill data object received")
-					}
+			getEmoteList(function(data){
+				if(typeof data == "object" && data instanceof Array){
+					console.log("Dungeon Emotes: Downloaded emoticon list!")
+					sdEmoticons = data
+					tries = 0
+					init()
+				} else {
+					console.warn("Could not initialise SDE; ill data object received")
 				}
 			})
 		}
