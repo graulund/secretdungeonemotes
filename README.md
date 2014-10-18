@@ -1,6 +1,21 @@
 # Secret Dungeon Emotes
 A set of cool (in-joke) emoticons that you can use anywhere on Twitch. They are born out of small communities created from Twitch's Group Chats functionality -- or as we like to refer to them, "dungeons".
 
+## What you get
+
+We are continually adding new cool emoticons to our list! Right now, we have the following:
+
+* ![CurtainKapp](images/CurtainKapp.png) CurtainKapp
+* ![ElectriKapp](images/ElectriKapp.png) ElectriKapp
+* ![TriKapp](images/TriKapp.png) TriKapp
+* ![appaK](images/appaK.png) appaK
+
+And even a couple secret (unlisted) emoticons. :)
+
+## Promote the script
+
+Spread the script to your Twitch friends by using this URL: **[bit.ly/sdemotes](http://bit.ly/sdemotes)**
+
 ## How to install
 
 ### User script
