@@ -5,10 +5,11 @@ A set of cool (in-joke) emoticons that you can use anywhere on Twitch. They are 
 
 We are continually adding new cool emoticons to our list! Right now, we have the following:
 
+* ![appaK](images/appaK.png) appaK
 * ![CurtainKapp](images/CurtainKapp.png) CurtainKapp
 * ![ElectriKapp](images/ElectriKapp.png) ElectriKapp
+* ![PutainRage](images/PutainRage.png) PutainRage
 * ![TriKapp](images/TriKapp.png) TriKapp
-* ![appaK](images/appaK.png) appaK
 
 And even a couple secret (unlisted) emoticons. :)
 
