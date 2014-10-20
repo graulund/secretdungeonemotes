@@ -8,7 +8,7 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 * ![appaK](images/appaK.png) appaK
 * ![CurtainKapp](images/CurtainKapp.png) CurtainKapp
 * ![ElectriKapp](images/ElectriKapp.png) ElectriKapp
-* ![ForeverAron](images/ForeverAron.png) ElectriKapp
+* ![ForeverAron](images/ForeverAron.png) ForeverAron
 * ![PutainRage](images/PutainRage.png) PutainRage
 * ![TriKapp](images/TriKapp.png) TriKapp
 
