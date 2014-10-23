@@ -11,6 +11,7 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 * ![FeelingIt](images/FeelingIt.png) FeelingIt
 * ![ForeverAron](images/ForeverAron.png) ForeverAron
 * ![PutainRage](images/PutainRage.png) PutainRage
+* ![RateSnog](images/RateSnog.png) RateSnog
 * ![TriKapp](images/TriKapp.png) TriKapp
 
 And even a couple secret (unlisted) emoticons. :)
