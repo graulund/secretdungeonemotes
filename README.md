@@ -14,6 +14,12 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 * ![RateSnog](images/RateSnog.png) RateSnog
 * ![TriKapp](images/TriKapp.png) TriKapp
 
+In addition to some dorito emoticons:
+* ![drU](images/drU.png) drU
+* ![drR](images/drR.png) drR
+* ![drD](images/drD.png) drD
+* ![drL](images/drL.png) drL
+
 And even a couple secret (unlisted) emoticons. :)
 
 ## Promote the script
