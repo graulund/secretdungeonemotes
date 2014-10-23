@@ -10,6 +10,7 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 * ![ElectriKapp](images/ElectriKapp.png) ElectriKapp
 * ![FeelingIt](images/FeelingIt.png) FeelingIt
 * ![ForeverAron](images/ForeverAron.png) ForeverAron
+* ![MlneBoom](images/MlneBoom.png) MlneBoom
 * ![PutainRage](images/PutainRage.png) PutainRage
 * ![RateSnog](images/RateSnog.png) RateSnog
 * ![TriKapp](images/TriKapp.png) TriKapp
