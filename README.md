@@ -1,5 +1,5 @@
-# Secret Dungeon Emotes
-A set of cool (in-joke) emoticons that you can use anywhere on Twitch. They are born out of small communities created from Twitch's Group Chats functionality -- or as we like to refer to them, "dungeons".
+# Secret Dungeon Emotes for Twitch.tv
+A set of cool (in-joke) emoticons that you can use anywhere on **[Twitch](http://www.twitch.tv)**. They are born out of small communities created from Twitch's Group Chats functionality -- or as we like to refer to them, "dungeons".
 
 ## What you get
 
