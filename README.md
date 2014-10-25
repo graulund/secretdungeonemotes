@@ -13,6 +13,7 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 * ![MlneBoom](images/MlneBoom.png) MlneBoom
 * ![PutainRage](images/PutainRage.png) PutainRage
 * ![RateSnog](images/RateSnog.png) RateSnog
+* ![SerenaFish](images/SerenaFish.png) SerenaFish
 * ![TriKapp](images/TriKapp.png) TriKapp
 * ![WooperZ](images/WooperZ.png) WooperZ
 
