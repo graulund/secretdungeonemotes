@@ -33,12 +33,12 @@
 			$segs    = explode('.', $filename, 2);
 			$name    = $segs[0];
 
-			echo 'Getting data for ' . $name . '...';
-
 			// Rot13'd name
 			if($name[0] == '_'){
 				$name = str_rot13(substr($name, 1));
 			}
+
+			echo 'Getting data for ' . $name . '...';
 
 			// Output
 			$output[] = array(
