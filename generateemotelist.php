@@ -35,6 +35,11 @@
 
 			echo 'Getting data for ' . $name . '...';
 
+			// Rot13'd name
+			if($name[0] == '_'){
+				$name = str_rot13(substr($name, 1));
+			}
+
 			// Output
 			$output[] = array(
 				'name'   => $name,
