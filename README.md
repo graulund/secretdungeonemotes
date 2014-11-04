@@ -7,11 +7,13 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 
 * ![appaK](images/appaK.png) appaK
 * ![CurtainKapp](images/CurtainKapp.png) CurtainKapp
+* ![DekuYay](images/DekuYay.png) DekuYay
 * ![ElectriKapp](images/ElectriKapp.png) ElectriKapp
 * ![FeelingIt](images/FeelingIt.png) FeelingIt
 * ![ForeverAron](images/ForeverAron.png) ForeverAron
 * ![JoltikZ](images/JoltikZ.png) JoltikZ
 * ![MlneBoom](images/MlneBoom.png) MlneBoom
+* ![OoohKaz](images/OoohKaz.png) OoohKaz
 * ![PutainRage](images/PutainRage.png) PutainRage
 * ![RateSnog](images/RateSnog.png) RateSnog
 * ![SerenaFish](images/SerenaFish.png) SerenaFish
