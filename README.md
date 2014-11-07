@@ -21,6 +21,7 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 * ![TipScales](images/TipScales.png) TipScales
 * ![TriKapp](images/TriKapp.png) TriKapp
 * ![WooperZ](images/WooperZ.png) WooperZ
+* ![ZrepooW](images/ZrepooW.png) ZrepooW
 
 In addition to some dorito emoticons:
 * ![drU](images/drU.png) drU
