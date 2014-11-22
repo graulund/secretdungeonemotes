@@ -5,7 +5,7 @@
 
 // @include     /^https?://(www|beta)\.twitch\.tv\/(.*)$/
 
-// @version 1.0
+// @version 1.1
 // @updateURL http://graulund.github.io/secretdungeonemotes/dungeonemotes.user.js
 // @grant       none
 // @run-at      document-end
