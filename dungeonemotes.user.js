@@ -7,7 +7,8 @@
 
 // @version 1.0
 // @updateURL http://graulund.github.io/secretdungeonemotes/dungeonemotes.user.js
-// @grant       unsafeWindow
+// @grant       none
+// @run-at      document-end
 // ==/UserScript==
 
 // ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼Sorry, I've dropped my bag of Doritos™ brand chips▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ► ▼ ◄ ◄ ▲▲ ► ▼ ◄▼ ◄ ◄ ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ►
@@ -33,12 +34,29 @@
  
  // BIG shoutouts to the original TPP chat filter script. Good pointers.
  
-(function(){
+(function(code){
 	"use strict";
 
-	var SDE_VERSION = "1.0";
+	var SDE_VERSION = "1.1";
 
-	var wnd, tries = 0, sdeSetId = -999, sdEmoticons = []
+	// ----------------------------
+    // Greasemonkey support
+    // ----------------------------
+    // Greasemonkey userscripts run in a separate environment and cannot use global
+    // variables from the page directly. Because of this, we package all out code inside
+    // a script tag and have it run in the context of the main page.
+
+    // TODO: is there a way to get better error messages? It won't show any line numbers.
+
+    var s = document.createElement('script');
+    s.appendChild(document.createTextNode(
+       '(' + code.toString() + '());'
+    ));
+    document.body.appendChild(s);
+
+}(function(){
+
+	var wnd = window, tries = 0, sdeSetId = -999, sdEmoticons = []
 	try {
 	    wnd = unsafeWindow;
 	} catch(e) {
@@ -346,4 +364,4 @@
 	request()
 
 
-}());
+}));
