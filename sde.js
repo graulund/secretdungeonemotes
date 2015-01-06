@@ -32,7 +32,7 @@ var sde = (function(){
 
 	var console = wnd.console
 
-	console.log("SDE preload: Hello!")
+	console.log("SDE preload: Hello from " + location.href + "!")
 
 	var hasFrankerFaceZ = function(){
 		return (typeof wnd.ffz != "undefined")
