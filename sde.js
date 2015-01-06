@@ -69,11 +69,9 @@ var sde = (function(){
 		return $.ajax({
 			url: "https://graulund.github.io/secretdungeonemotes/dungeonemotes.json",
 			dataType: "jsonp",
-			jsonpCallback: "sde_jsonp_static",
-			success: callback,
-			error: function(jqXHR, textStatus, errorThrown){
-				console.error("SDE: Error occured retrieving emote data! " + errorThrown)
-			}
+			jsonpCallback: "sde_jsonp_static"
+		}).done(callback).fail(function(jqXHR, textStatus, errorThrown){
+			console.error("SDE: Error occured retrieving emote data! " + errorThrown)
 		})
 	}
 
