@@ -47,8 +47,6 @@ var sde = (function(){
 		var loaded =
 			typeof wnd.Ember != "undefined" &&
 			typeof wnd.App != "undefined" &&
-			typeof wnd.App.EmoticonsController != "undefined" &&
-			typeof wnd.App.Room != "undefined" &&
 			typeof wnd.jQuery != "undefined"
 
 		if(!loaded){
@@ -161,9 +159,10 @@ var sde = (function(){
 			},
 
 			modify_room: function() {
-				this._modify_room(App.Room);
+				var room = App.__container__.resolve("model:room");
+				this._modify_room(room);
 
-				var inst = App.Room.instances;
+				var inst = room.instances;
 				for(var n in inst) {
 					if ( ! inst.hasOwnProperty(n) ) continue;
 					var i = inst[n];
@@ -191,7 +190,7 @@ var sde = (function(){
 				});
 			},
 			modify_viewers: function() {
-				this._modify_viewers(App.Room.Viewers);
+				this._modify_viewers(App.__container__.resolve("model:room").Viewers);
 			},
 			_modify_emotes: function(ec) {
 				var self = this;
@@ -213,7 +212,7 @@ var sde = (function(){
 				});
 			},
 			modify_emotes: function() {
-				this._modify_emotes(App.EmoticonsController);
+				this._modify_emotes(App.__container__.resolve("controller:emoticons"));
 
 				var ec = App.__container__.lookup("controller:emoticons");
 				if ( ! ec ) return;
