@@ -70,7 +70,10 @@ var sde = (function(){
 			url: "https://graulund.github.io/secretdungeonemotes/dungeonemotes.json",
 			dataType: "jsonp",
 			jsonpCallback: "sde_jsonp_static",
-			success: callback
+			success: callback,
+			error: function(jqXHR, textStatus, errorThrown){
+				console.error("SDE: Error occured retrieving emote data! " + errorThrown)
+			}
 		})
 	}
 
