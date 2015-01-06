@@ -66,7 +66,7 @@ var sde = (function(){
 	}
 
 	var getEmoteList = function(callback){
-		$.ajax({
+		return $.ajax({
 			url: "https://graulund.github.io/secretdungeonemotes/dungeonemotes.json",
 			dataType: "jsonp",
 			jsonpCallback: "sde_jsonp_static",
