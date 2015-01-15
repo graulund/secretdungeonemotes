@@ -26,9 +26,9 @@
 var sde = (function(){
 	"use strict";
 
-	var SDE_VERSION = "2.0";
+	var SDE_VERSION = "2.0.1";
 
-	var wnd = window, tries = 0, sdeSetId = -999, sdEmoticons = []
+	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900, sdeFfzName = "_sde"
 
 	var console = wnd.console
 
@@ -80,8 +80,8 @@ var sde = (function(){
 
 		// Do it!
 
-		var App = wnd.App, sdeManager = null, sdeEmoteList = {}, sdeChannels = {},
-			hasBTTV = ("BTTVLOADED" in window && window.BTTVLOADED)
+		var App = wnd.App, sdeManager = null, sdeEmoteList = [], sdeChannels = {},
+			sdeFfzList = {}, hasBTTV = ("BTTVLOADED" in window && window.BTTVLOADED)
 
 		// Prerequisites (Thanks to FrankerFaceZ!)
 
@@ -244,6 +244,28 @@ var sde = (function(){
 			sdeEmoteList = list
 		}
 
+		var convertEmoticonListToFFZ = function(){
+			var list = {}
+			for(var i = 0; i < sdEmoticons.length; i++){
+				var sdem = sdEmoticons[i]
+				var regex = new RegExp("\\b" + sdem.name + "\\b", "g")
+				var id = sdeFfzOffset + i
+				list[id] = {
+					extra_css: "",
+					width: sdem.width,
+					height: sdem.height,
+					name: sdem.name,
+					regex: regex,
+					id: id,
+					url: sdem.url,
+					klass: "sde-emo-" + (i+1),
+					margins: "",
+					hidden: false
+				}
+			}
+			sdeFfzList = list
+		}
+
 		var updateEmoticonCSS = function(){
 			var styleId = "sde-styles", styleEl = $("style#" + styleId), cssText = ""
 			if(styleEl.length <= 0){
@@ -267,25 +289,19 @@ var sde = (function(){
 
 			if(hasFrankerFaceZ()){
 
-				for(var i = 0; i < sdeEmoteList.length; i++){
-					var e = sdeEmoteList[i]
-					e.ffzset = "global"
-					e.channel = "SDE Global"
-					e.hidden = false
+				convertEmoticonListToFFZ()
+
+				var ffz = wnd.ffz
+				ffz.emote_sets[sdeFfzName] = {
+					emotes: sdeFfzList,
+					extra_css: null,
+					global: true,
+					id: sdeFfzName,
+					users: []
 				}
+				ffz.global_sets.push(sdeFfzName)
 
-				var ffz = wnd.ffz, ffzGlobalName = "FFZ Global Emotes"
-				ffz.emotesets[sdeSetId] = sdeEmoteList
-				ffz.emoticons = ffz.emoticons.concat(sdeEmoteList)
-				ffz.collections[ffzGlobalName] = ffz.collections[ffzGlobalName].concat(sdeEmoteList)
-				ffz.globals["sde"] = sdeSetId
-				ffz.global_sets.push(sdeSetId)
-
-				if(ffz.manager){
-					ffz.manager.emoticonSets[sdeSetId] = sdeEmoteList
-				}
-
-				ext.log("Added set " + sdeSetId + " to FrankerFaceZ")
+				ext.log("Added set " + sdeFfzName + " to FrankerFaceZ")
 			} else {
 				ext.log("No FFZ, we're going solo")
 				ext.modify_room()
