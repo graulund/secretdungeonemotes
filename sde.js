@@ -34,6 +34,11 @@ var sde = (function(){
 
 	console.log("SDE preload: Hello from " + location.href + "!")
 
+	if(/^(api|chatdepot)/.test(location.hostname)){
+		console.log("Aborting from " + location.href + ", since we're not on www.twitch.tv")
+		return
+	}
+
 	var hasFrankerFaceZ = function(){
 		return (typeof wnd.ffz != "undefined")
 	}
