@@ -26,7 +26,7 @@
 var sde = (function(){
 	"use strict";
 
-	var SDE_VERSION = "2.0.1";
+	var SDE_VERSION = "2.0.2";
 
 	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900, sdeFfzName = "_sde"
 
@@ -85,8 +85,15 @@ var sde = (function(){
 
 		// Do it!
 
-		var App = wnd.App, sdeManager = null, sdeEmoteList = [], sdeChannels = {},
+		var App = wnd.App, sdeEmoteList = [], sdeChannels = {},
 			sdeFfzList = {}, hasBTTV = ("BTTVLOADED" in window && window.BTTVLOADED)
+
+		// Main methods
+
+		var getEmotesByOrigin = function(roomId, userId){
+			// Very simple... for now?
+			return sdeEmoteList
+		}
 
 		// Prerequisites (Thanks to FrankerFaceZ!)
 
@@ -98,14 +105,11 @@ var sde = (function(){
 				}
 				console.log.apply(console, arguments)
 			},
-			get_manager: function(manager) {
-				sdeManager = manager;
-				/*for(var key in this.emotesets) {
-				 if ( this.emotesets.hasOwnProperty(key) )
-				 manager.emoticonSets[key] = this.emotesets[key];
-				 }*/
-				this.log("Setting emoticons in manager", manager)
-				manager.emoticonSets[sdeSetId] = sdeEmoteList
+			error: function(){
+				if(arguments.length > 0 && typeof arguments[0] == "string"){
+					arguments[0] = "Dungeon Emotes: " + arguments[0]
+				}
+				console.error.apply(console, arguments)
 			},
 
 			// Channel management
@@ -197,33 +201,71 @@ var sde = (function(){
 			modify_viewers: function() {
 				this._modify_viewers(App.__container__.resolve("model:room").Viewers);
 			},
-			_modify_emotes: function(ec) {
-				var self = this;
-				ec.reopen({
-					_emoticons: ec.emoticons || [],
-
-					init: function() {
-						this._super();
-						self.get_manager(this)
-					},
-
-					emoticons: Ember.computed(function(key, val) {
-						if ( arguments.length > 1 ) {
-							this._emoticons = val;
-							self.log("Twitch standard emoticons loaded.");
+			modify_line: function(){
+				var Line = App.__container__.resolve('controller:line'),
+					f = this;
+			
+				Line.reopen({
+					tokenizedMessage: function() {
+						// Add our own step to the tokenization procedure.
+						var tokens = this._super();
+			
+						try {
+							tokens = f._emoticonize(this, tokens);
+						} catch(err) {
+							try {
+								f.error("LineController tokenizedMessage: " + err);
+							} catch(err) { }
 						}
-						return _.union(this._emoticons, sdeEmoteList)
-					})
+			
+						return tokens;
+			
+					}.property("model.message", "isModeratorOrHigher")
 				});
 			},
-			modify_emotes: function() {
-				this._modify_emotes(App.__container__.resolve("controller:emoticons"));
+			_emoticonize: function(controller, tokens) {
+				var room_id = controller.get("parentController.model.id"),
+					user_id = controller.get("model.from"),
+					f = this;
 
-				var ec = App.__container__.lookup("controller:emoticons");
-				if ( ! ec ) return;
+				var emotes = getEmotesByOrigin(user_id, room_id);
 
-				this._modify_emotes(ec);
-				this.get_manager(ec);
+				// Don't bother proceeding if we have no emotes.
+				if ( ! emotes.length )
+					return tokens;
+			
+				// Now that we have all the matching tokens, do crazy stuff.
+				if ( typeof tokens == "string" )
+					tokens = [tokens];
+			
+				// This is weird stuff I basically copied from the old Twitch code.
+				// Here, for each emote, we split apart every text token and we
+				// put it back together with the matching bits of text replaced
+				// with an object telling Twitch's line template how to render the
+				// emoticon.
+				_.each(emotes, function(emote) {
+					var eo = {
+						isEmoticon:true,
+						cls: emote.klass,
+						emoticonSrc: emote.url,
+						altText: emote.name
+					};
+			
+					tokens = _.compact(_.flatten(_.map(tokens, function(token) {
+						if ( _.isObject(token) )
+							return token;
+			
+						var tbits = token.split(emote.regex), bits = [];
+						tbits.forEach(function(val, ind) {
+							bits.push(val);
+							if ( ind !== tbits.length - 1 )
+								bits.push(eo);
+						});
+						return bits;
+					})));
+				});
+			
+				return tokens;
 			}
 		}
 
@@ -242,8 +284,10 @@ var sde = (function(){
 					regex: regex,
 					isEmoticon: true,
 					cls: "sde-emo-" + (i+1),
+					klass: "sde-emo-" + (i+1),
 					image: img,
-					images: [img]
+					images: [img],
+					url: sdem.url
 				})
 			}
 			sdeEmoteList = list
@@ -311,7 +355,7 @@ var sde = (function(){
 				ext.log("No FFZ, we're going solo")
 				ext.modify_room()
 				ext.modify_viewers()
-				ext.modify_emotes()
+				ext.modify_line()
 			}
 		}
 
