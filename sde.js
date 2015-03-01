@@ -74,7 +74,7 @@ var sde = (function(){
 			dataType: "jsonp",
 			jsonpCallback: "sde_jsonp_static"
 		}).done(callback).fail(function(jqXHR, textStatus, errorThrown){
-			console.error("SDE: Error occured retrieving emote data! " + errorThrown)
+			console.log("SDE: Error occured retrieving emote data! " + errorThrown)
 		})
 	}
 
@@ -109,7 +109,7 @@ var sde = (function(){
 				if(arguments.length > 0 && typeof arguments[0] == "string"){
 					arguments[0] = "Dungeon Emotes: " + arguments[0]
 				}
-				console.error.apply(console, arguments)
+				console.log.apply(console, arguments)
 			},
 
 			// Channel management
