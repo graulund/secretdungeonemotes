@@ -26,7 +26,7 @@
 var sde = (function(){
 	"use strict";
 
-	var SDE_VERSION = "2.0.2";
+	var SDE_VERSION = "2.0.3";
 
 	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900, sdeFfzName = "_sde"
 
