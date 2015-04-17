@@ -70,7 +70,7 @@ var sde = (function(){
 
 	var getEmoteList = function(callback){
 		return $.ajax({
-			url: "https://graulund.github.io/secretdungeonemotes/dungeonemotes.json",
+			url: "https://raw.githubusercontent.com/walle303/secretdungeonemotes/gh-pages/dungeonemotes.json",
 			dataType: "jsonp",
 			jsonpCallback: "sde_jsonp_static"
 		}).done(callback).fail(function(jqXHR, textStatus, errorThrown){
