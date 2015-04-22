@@ -26,7 +26,7 @@
 var sde = (function(){
 	"use strict";
 
-	var SDE_VERSION = "2.0.3";
+	var SDE_VERSION = "2.0.4";
 
 	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900, sdeFfzName = "_sde"
 
@@ -248,6 +248,7 @@ var sde = (function(){
 						isEmoticon:true,
 						cls: emote.klass,
 						emoticonSrc: emote.url,
+						srcSet: emote.url + ' 1x',
 						altText: emote.name
 					};
 			
