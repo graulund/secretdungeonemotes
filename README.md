@@ -5,6 +5,8 @@ A set of cool (in-joke) emoticons that you can use anywhere on **[Twitch](http:/
 
 We are continually adding new cool emoticons to our list! Right now, we have the following:
 
+**Last updated: Apr 22, 2015**
+
 * ![appaK](images/appaK.png) appaK
 * ![CurtainKapp](images/CurtainKapp.png) CurtainKapp
 * ![DekuYay](images/DekuYay.png) DekuYay
@@ -13,6 +15,7 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 * ![FeelingIt](images/FeelingIt.png) FeelingIt
 * ![ForeverAron](images/ForeverAron.png) ForeverAron
 * ![JoltikZ](images/JoltikZ.png) JoltikZ
+* ![LoveChatot](images/LoveChatot.png) LoveChatot
 * ![MlneBoom](images/MlneBoom.png) MlneBoom
 * ![OoohKaz](images/OoohKaz.png) OoohKaz
 * ![PutainRage](images/PutainRage.png) PutainRage
