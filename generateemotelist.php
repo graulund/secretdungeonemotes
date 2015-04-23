@@ -33,9 +33,19 @@
 			$segs    = explode('.', $filename, 2);
 			$name    = $segs[0];
 
+			// Skip resolution copies for now
+			if(preg_match('/@[2-9]x$/', $name)){
+				continue;
+			}
+
 			// Rot13'd name
 			if($name[0] == '_'){
 				$name = str_rot13(substr($name, 1));
+			}
+
+			// This one is special (case-insensitive file system)
+			if($name == 'ZElecTriKapp'){
+				$name = 'ElecTriKapp';
 			}
 
 			echo 'Getting data for ' . $name . '...';
