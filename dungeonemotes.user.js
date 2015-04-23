@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Secret Dungeon Emotes
 // @namespace   graulund.github.io
-// @description Secret Dungeon Emotes: A set of cool (in-joke) emoticons that you can use anywhere on Twitch.
+// @description A set of cool (in-joke) emoticons that you can use anywhere on Twitch.
 
 // @include	*.twitch.tv/*
 // @exclude api.twitch.tv/*
