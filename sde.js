@@ -26,7 +26,7 @@
 var sde = (function(){
 	"use strict";
 
-	var SDE_VERSION = "2.0.4";
+	var SDE_VERSION = "2.0.5";
 
 	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900, sdeFfzName = "_sde"
 
@@ -116,7 +116,7 @@ var sde = (function(){
 			add_channel: function(id, room) {
 				if ( !this.alive ) return;
 				this.log("Registered channel: " + id);
-				sdeChannels[id] = {id: id, room: room, tmi: null, style: null};
+				sdeChannels[id] = {id: id, room: room};
 				// Load the emotes for this channel.
 				//this.load_emotes(id);
 			},
@@ -130,26 +130,8 @@ var sde = (function(){
 				// Unload the associated emotes.
 				this.unload_emotes(id);
 
-				// If we have a tmiRoom for this channel, restore its getEmotes function.
-				if ( chan.tmi )
-					delete chan.tmi.getEmotes;
-
 				// Delete this channel.
 				sdeChannels[id] = false;
-			},
-
-			alter_channel_tmi : function(id, tmi) {
-				var chan = sdeChannels[id], f = this;
-				if ( !chan || !this.alive ) return;
-
-				// Store the TMI instance.
-				if ( chan.tmi) return;
-				chan.tmi = tmi;
-
-				var tp = tmi.__proto__.getEmotes.bind(tmi);
-				tmi.getEmotes = function(name) {
-					return _.union([sdeSetId], f.global_sets, tp(name)||[]);
-				}
 			},
 
 			_modify_room: function(room) {
@@ -168,38 +150,19 @@ var sde = (function(){
 			},
 
 			modify_room: function() {
-				var room = App.__container__.resolve("model:room");
-				this._modify_room(room);
+				var Room = App.__container__.resolve("model:room");
+				this._modify_room(Room);
 
-				var inst = room.instances;
-				for(var n in inst) {
-					if ( ! inst.hasOwnProperty(n) ) continue;
-					var i = inst[n];
-					this.add_channel(i.id, i);
+				// Modify all current instances of Room, as the changes to the base
+				// class won't be inherited automatically.
+				var instances = Room.instances;
+				for(var key in instances) {
+					if ( ! instances.hasOwnProperty(key) )
+						continue;
 
-					if (i.tmiRoom)
-						this.alter_channel_tmi(i.id, i.tmiRoom);
-					else if (i.viewers)
-						this._modify_viewers(i.viewers);
-
-					this._modify_room(i);
+					var inst = instances[key];
+					this._modify_room(inst);
 				}
-			},
-			_modify_viewers: function(vwrs) {
-				var f = this;
-				vwrs.reopen({
-					tmiRoom: Ember.computed(function(key, val) {
-						if ( arguments.length > 1 ) {
-							this.tmiRoom = val;
-							if ( f.alive )
-								f.alter_channel_tmi(this.id, val);
-						}
-						return undefined;
-					})
-				});
-			},
-			modify_viewers: function() {
-				this._modify_viewers(App.__container__.resolve("model:room").Viewers);
 			},
 			modify_line: function(){
 				var Line = App.__container__.resolve('controller:line'),
@@ -355,7 +318,6 @@ var sde = (function(){
 			} else {
 				ext.log("No FFZ, we're going solo")
 				ext.modify_room()
-				ext.modify_viewers()
 				ext.modify_line()
 			}
 		}
@@ -399,8 +361,7 @@ var sde = (function(){
 	return {
 		getEmoteList: getEmoteList,
 		emoteList: function(){ return sdEmoticons },
-		tries: function(){ return tries },
-		setId: function(){ return sdeSetId }
+		tries: function(){ return tries }
 	}
 
 })();
