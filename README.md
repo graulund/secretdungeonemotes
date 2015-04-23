@@ -1,6 +1,8 @@
 # Secret Dungeon Emotes for Twitch.tv
 A set of cool (in-joke) emoticons that you can use anywhere on **[Twitch](http://www.twitch.tv)**. They are born out of small communities created from Twitch's Group Chats functionality -- or as we like to refer to them, "dungeons".
 
+**NEW: SDE now exists as a Google Chrome extension! [Install Secret Dungeon Emotes in Chrome here!](http://chrome.google.com/webstore/detail/secret-dungeon-emotes/fljimgaiflbdcihhihlmccpdfnlcedcm)**
+
 ## What you get
 
 We are continually adding new cool emoticons to our list! Right now, we have the following:
@@ -39,6 +41,10 @@ And even a couple secret (unlisted) emoticons. :)
 Spread the script to your Twitch friends by using this URL: **[bit.ly/sdemotes](http://bit.ly/sdemotes)**
 
 ## How to install
+
+### Google Chrome extension
+
+If you use Google Chrome, simply **[install Secret Dungeon Emotes via this handy link!](http://chrome.google.com/webstore/detail/secret-dungeon-emotes/fljimgaiflbdcihhihlmccpdfnlcedcm)**
 
 ### User script
 
