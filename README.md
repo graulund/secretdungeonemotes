@@ -7,7 +7,7 @@ A set of cool (in-joke) emoticons that you can use anywhere on **[Twitch](http:/
 
 We are continually adding new cool emoticons to our list! Right now, we have the following:
 
-**Last updated: Apr 23, 2015**
+**Last updated: May 14, 2015**
 
 * ![appaK](images/appaK.png) appaK
 * ![Breject](images/Breject.png) Breject
@@ -19,6 +19,7 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 * ![FeelingIt](images/FeelingIt.png) FeelingIt
 * ![FogChamp](images/FogChamp.png) FogChamp
 * ![ForeverAron](images/ForeverAron.png) ForeverAron
+* ![HateChatot](images/HateChatot.png) HateChatot
 * ![JoltikZ](images/JoltikZ.png) JoltikZ
 * ![LoveChatot](images/LoveChatot.png) LoveChatot
 * ![MlneBoom](images/MlneBoom.png) MlneBoom
