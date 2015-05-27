@@ -26,7 +26,7 @@
 var sde = (function(){
 	"use strict";
 
-	var SDE_VERSION = "2.0.5";
+	var SDE_VERSION = "2.0.6";
 
 	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900, sdeFfzName = "_sde"
 
@@ -111,61 +111,8 @@ var sde = (function(){
 				}
 				console.log.apply(console, arguments)
 			},
-
-			// Channel management
-			add_channel: function(id, room) {
-				if ( !this.alive ) return;
-				this.log("Registered channel: " + id);
-				sdeChannels[id] = {id: id, room: room};
-				// Load the emotes for this channel.
-				//this.load_emotes(id);
-			},
-
-			remove_channel : function(id) {
-				var chan = sdeChannels[id];
-				if ( !chan ) return;
-
-				this.log("Removing channel: " + id);
-
-				// Unload the associated emotes.
-				this.unload_emotes(id);
-
-				// Delete this channel.
-				sdeChannels[id] = false;
-			},
-
-			_modify_room: function(room) {
-				var self = this;
-				room.reopen({
-					init: function() {
-						this._super();
-						self.add_channel(this.id, this);
-					},
-
-					willDestroy: function() {
-						this._super();
-						self.remove_channel(this.id);
-					}
-				});
-			},
-
-			modify_room: function() {
-				var Room = App.__container__.resolve("model:room");
-				this._modify_room(Room);
-
-				// Modify all current instances of Room, as the changes to the base
-				// class won't be inherited automatically.
-				var instances = Room.instances;
-				for(var key in instances) {
-					if ( ! instances.hasOwnProperty(key) )
-						continue;
-
-					var inst = instances[key];
-					this._modify_room(inst);
-				}
-			},
 			modify_line: function(){
-				var Line = App.__container__.resolve('controller:line'),
+				var Line = App.__container__.resolve("component:message-line"),
 					f = this;
 			
 				Line.reopen({
@@ -211,7 +158,7 @@ var sde = (function(){
 						isEmoticon:true,
 						cls: emote.klass,
 						emoticonSrc: emote.url,
-						srcSet: emote.url + ' 1x',
+						srcSet: emote.url + " 1x",
 						altText: emote.name
 					};
 			
@@ -317,7 +264,6 @@ var sde = (function(){
 				ext.log("Added set " + sdeFfzName + " to FrankerFaceZ")
 			} else {
 				ext.log("No FFZ, we're going solo")
-				ext.modify_room()
 				ext.modify_line()
 			}
 		}
