@@ -26,9 +26,9 @@
 var sde = (function(){
 	"use strict";
 
-	var SDE_VERSION = "2.0.6";
+	var SDE_VERSION = "2.0.7";
 
-	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900, sdeFfzName = "_sde"
+	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900000, sdeFfzName = "999999", usingFfz = false
 
 	var console = wnd.console
 
@@ -205,23 +205,30 @@ var sde = (function(){
 		}
 
 		var convertEmoticonListToFFZ = function(){
-			var list = {}
+
+			var owner = {
+				display_name: "electricnet",
+				id: 999999,
+				name: "electricnet"
+			}
+
+			var list = []
 			for(var i = 0; i < sdEmoticons.length; i++){
 				var sdem = sdEmoticons[i]
 				var regex = new RegExp("\\b" + sdem.name + "\\b", "g")
 				var id = sdeFfzOffset + i
-				list[id] = {
-					extra_css: "",
-					width: sdem.width,
+				list.push({
+					css: null,
 					height: sdem.height,
-					name: sdem.name,
-					regex: regex,
+					hidden: /^dan/.test(sdem.name),
 					id: id,
-					url: sdem.url,
-					klass: "sde-emo-" + (i+1),
-					margins: "",
-					hidden: false
-				}
+					margins: null,
+					name: sdem.name,
+					owner: owner,
+					public: false,
+					urls: { 1: sdem.url },
+					width: sdem.width
+				})
 			}
 			sdeFfzList = list
 		}
@@ -247,29 +254,46 @@ var sde = (function(){
 
 		var load = function(){
 
-			if(hasFrankerFaceZ()){
+			usingFfz = hasFrankerFaceZ()
 
+			if(usingFfz){
+
+				// Prepare the data structures
 				convertEmoticonListToFFZ()
 
 				var ffz = wnd.ffz
-				ffz.emote_sets[sdeFfzName] = {
-					emotes: sdeFfzList,
-					extra_css: null,
-					global: true,
+				var ffzSet = {
+					_type: 0,
+					count: sdEmoticons.length,
+					css: null,
+					description: null,
+					emoticons: sdeFfzList,
+					icon: null,
 					id: sdeFfzName,
+					title: "Secret Dungeon Emotes",
 					users: []
 				}
+
+				// Register handles
+				ffz.emote_sets[sdeFfzName] = ffzSet
 				ffz.global_sets.push(sdeFfzName)
+				ffz.default_sets.push(sdeFfzName)
+				ffz._load_set_json(sdeFfzName, void 0, ffzSet)
 
 				ext.log("Added set " + sdeFfzName + " to FrankerFaceZ")
 			} else {
 				ext.log("No FFZ, we're going solo")
+
+				// Prepare the data structures
+				convertEmoticonList()
+				updateEmoticonCSS()
+
+				// Register handle
 				ext.modify_line()
+
+				ext.log("Line hook added")
 			}
 		}
-
-		convertEmoticonList()
-		updateEmoticonCSS()
 
 		ext.log("Proceeding to load!")
 		load()
@@ -304,10 +328,13 @@ var sde = (function(){
 
 	request()
 
+	// Public methods
+
 	return {
 		getEmoteList: getEmoteList,
 		emoteList: function(){ return sdEmoticons },
-		tries: function(){ return tries }
+		tries: function(){ return tries },
+		isUsingFfz: function(){ return usingFfz }
 	}
 
 })();
