@@ -7,7 +7,7 @@ Scroll down for installation instructions.
 
 We are continually adding new cool emoticons to our list! Right now, we have the following:
 
-**Last updated: Nov 27th, 2015**
+**Last updated: Jan 29th, 2016**
 
 * ![appaK](images/appaK.png) appaK
 * ![Breject](images/Breject.png) Breject
