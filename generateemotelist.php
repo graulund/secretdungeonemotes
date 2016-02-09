@@ -6,11 +6,13 @@
 
 	define('IMAGES_DIR', 'images');
 	define('JSON_FILENAME', 'dungeonemotes.json');
+	define('JSONP_FILENAME', 'dungeonemotes-prefixed.json');
 	define('JSONP_METHOD_NAME', 'sde_jsonp_static');
 
 	$pwd = realpath('.');
 	$imagesDir = $pwd . DIRECTORY_SEPARATOR . IMAGES_DIR;
 	$jsonFilename = $pwd . DIRECTORY_SEPARATOR . JSON_FILENAME;
+	$jsonpFilename = $pwd . DIRECTORY_SEPARATOR . JSONP_FILENAME;
 	$output = array();
 
 	echo "SECRET DUNGEON EMOTES JSON GENERATOR\n";
@@ -65,9 +67,14 @@
 
 	echo 'Writing to file...';
 
-	// Write to the file!
+	// Write to the files!
+
 	file_put_contents(
 		$jsonFilename,
+		json_encode($output)
+	);
+	file_put_contents(
+		$jsonpFilename,
 		JSONP_METHOD_NAME . '(' .
 			json_encode($output) .
 		')'

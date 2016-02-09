@@ -1,6 +1,6 @@
 // ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼
-// ◄ ▲ ► ▼ ▼ ◄ Sorry, I've dropped my bag of Doritos™ brand chips ▲ ► ▼ ◄ ▲ ► 
-// ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ► ▼ ◄ ◄ ▲▲ ► ▼ ◄▼ ◄ ◄ ▼ 
+// ◄ ▲ ► ▼ ▼ ◄ Sorry, I've dropped my bag of Doritos™ brand chips ▲ ► ▼ ◄ ▲ ►
+// ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ◄ ▲ ► ▼ ► ▼ ◄ ◄ ▲▲ ► ▼ ◄▼ ◄ ◄ ▼
 
 /*
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,13 +20,13 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
+
  // BIG shoutouts to the original TPP chat filter script. Good pointers.
- 
+
 var sde = (function(){
 	"use strict";
 
-	var SDE_VERSION = "2.0.7";
+	var SDE_VERSION = "2.0.8";
 
 	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900000, sdeFfzName = "999999", usingFfz = false
 
@@ -70,7 +70,7 @@ var sde = (function(){
 
 	var getEmoteList = function(callback){
 		return $.ajax({
-			url: "https://graulund.github.io/secretdungeonemotes/dungeonemotes.json",
+			url: "https://graulund.github.io/secretdungeonemotes/dungeonemotes-prefixed.json",
 			dataType: "jsonp",
 			jsonpCallback: "sde_jsonp_static"
 		}).done(callback).fail(function(jqXHR, textStatus, errorThrown){
@@ -114,12 +114,12 @@ var sde = (function(){
 			modify_line: function(){
 				var Line = App.__container__.resolve("component:message-line"),
 					f = this;
-			
+
 				Line.reopen({
 					tokenizedMessage: function() {
 						// Add our own step to the tokenization procedure.
 						var tokens = this._super();
-			
+
 						try {
 							tokens = f._emoticonize(this, tokens);
 						} catch(err) {
@@ -127,9 +127,9 @@ var sde = (function(){
 								f.error("LineController tokenizedMessage: " + err);
 							} catch(err) { }
 						}
-			
+
 						return tokens;
-			
+
 					}.property("model.message", "isModeratorOrHigher")
 				});
 			},
@@ -143,11 +143,11 @@ var sde = (function(){
 				// Don't bother proceeding if we have no emotes.
 				if ( ! emotes.length )
 					return tokens;
-			
+
 				// Now that we have all the matching tokens, do crazy stuff.
 				if ( typeof tokens == "string" )
 					tokens = [tokens];
-			
+
 				// This is weird stuff I basically copied from the old Twitch code.
 				// Here, for each emote, we split apart every text token and we
 				// put it back together with the matching bits of text replaced
@@ -161,11 +161,11 @@ var sde = (function(){
 						srcSet: emote.url + " 1x",
 						altText: emote.name
 					};
-			
+
 					tokens = _.compact(_.flatten(_.map(tokens, function(token) {
 						if ( _.isObject(token) )
 							return token;
-			
+
 						var tbits = token.split(emote.regex), bits = [];
 						tbits.forEach(function(val, ind) {
 							bits.push(val);
@@ -175,7 +175,7 @@ var sde = (function(){
 						return bits;
 					})));
 				});
-			
+
 				return tokens;
 			}
 		}
