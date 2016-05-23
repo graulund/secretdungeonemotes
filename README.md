@@ -7,7 +7,7 @@ Scroll down for installation instructions.
 
 We are continually adding new cool emoticons to our list! Right now, we have the following:
 
-**Last updated: Mar 22nd, 2016**
+**Last updated: May 23rd, 2016**
 
 * ![appaK](images/appaK.png) appaK
 * ![Breject](images/Breject.png) Breject
@@ -26,6 +26,7 @@ We are continually adding new cool emoticons to our list! Right now, we have the
 * ![MlneBoom](images/MlneBoom.png) MlneBoom
 * ![NeckTube](images/NeckTube.png) NeckTube
 * ![OoohKaz](images/OoohKaz.png) OoohKaz
+* ![PagChomp](images/PagChomp.png) PagChomp
 * ![PutainRage](images/PutainRage.png) PutainRage
 * ![RateSnog](images/RateSnog.png) RateSnog
 * ![SlowpieOP](images/SlowpieOP.png) SlowpieOP
